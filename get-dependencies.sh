@@ -14,9 +14,11 @@ get-debloated-pkgs --add-common --prefer-nano
 
 # Comment this out if you need an AUR package
 if [ "${DEVEL_RELEASE-}" = 1 ]; then
-  make-aur-package cdogs-git
+    package=cdogs-git
 else
-  make-aur-package cdogs
+    package=cdogs
 fi
+make-aur-package "$package"
+pacman -Q "$package" | awk '{print $2; exit}' > ~/version
 
 # If the application needs to be manually built that has to be done down here
